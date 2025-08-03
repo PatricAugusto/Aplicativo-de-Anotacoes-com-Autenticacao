@@ -5,12 +5,7 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAcnW6r3yLcBGP2Db68464lCMXyz2j3hAw",
-  authDomain: "app-anotacoes-matrix.firebaseapp.com",
-  projectId: "app-anotacoes-matrix",
-  storageBucket: "app-anotacoes-matrix.firebasestorage.app",
-  messagingSenderId: "343445919318",
-  appId: "1:343445919318:web:23b6b344b11941a01c0df7"
+  
 };
 
 // Initialize Firebase
