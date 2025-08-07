@@ -1,6 +1,6 @@
 // src/pages/Auth.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { app } from '../firebase-config'; // Importa a instância do Firebase app
@@ -10,12 +10,12 @@ import { useAuth } from '../contexts/AuthContext'; // Importa o nosso hook de co
 // Componentes estilizados (mantidos da última etapa)
 const AuthContainer = styled.div`
   background-color: var(--matrix-gray);
-  padding: 3rem;
+  padding: 3rem; // Usaremos rem para o padding
   border-radius: 10px;
   box-shadow: 0 0 25px var(--matrix-green);
   text-align: center;
-  width: 90%;
-  max-width: 400px;
+  width: 90%; // Ocupa 90% da largura disponível
+  max-width: 400px; // Limite máximo para não ficar muito largo em telas grandes
   animation: pulse 2s infinite alternate;
 
   @keyframes pulse {
@@ -26,27 +26,42 @@ const AuthContainer = styled.div`
       box-shadow: 0 0 30px var(--matrix-green);
     }
   }
+
+  // Media queries para telas menores
+  @media (max-width: 480px) {
+    padding: 1.5rem; // Reduz o padding em telas muito pequenas
+    border-radius: 5px;
+  }
 `;
 
 const AuthTitle = styled.h2`
   color: var(--matrix-green);
   text-shadow: 0 0 10px var(--matrix-green);
   margin-bottom: 2rem;
-  font-size: 2rem;
+  font-size: 2rem; // Tamanho de fonte baseado em rem
+  
+  @media (max-width: 480px) {
+    font-size: 1.5rem; // Reduz o tamanho da fonte em telas menores
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const AuthForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.5rem; // Usaremos rem para o espaçamento
+  
+  @media (max-width: 480px) {
+    gap: 1rem;
+  }
 `;
 
 const AuthInput = styled.input`
   background-color: var(--matrix-dark);
   border: 1px solid var(--matrix-green);
   color: var(--matrix-green);
-  padding: 0.8rem;
-  font-size: 1rem;
+  padding: 0.8rem; // Usaremos rem para o padding
+  font-size: 1rem; // Tamanho de fonte baseado em rem
   outline: none;
 
   &:focus {
@@ -62,8 +77,8 @@ const AuthButton = styled.button`
   background-color: var(--matrix-green);
   color: var(--matrix-dark);
   border: none;
-  padding: 1rem;
-  font-size: 1rem;
+  padding: 1rem; // Usaremos rem para o padding
+  font-size: 1rem; // Tamanho de fonte baseado em rem
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
   font-weight: bold;
@@ -75,10 +90,10 @@ const AuthButton = styled.button`
 `;
 
 const AuthSwitch = styled.p`
-  margin-top: 1.5rem;
+  margin-top: 1.5rem; // Usaremos rem
   cursor: pointer;
   color: var(--matrix-green);
-  font-size: 0.9rem;
+  font-size: 0.9rem; // Tamanho de fonte baseado em rem
 
   &:hover {
     text-decoration: underline;
@@ -90,7 +105,6 @@ const AuthError = styled.p`
   margin-top: 1rem;
   font-size: 0.9rem;
 `;
-
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -104,9 +118,11 @@ const Auth = () => {
 
   // Se o usuário já estiver autenticado, redireciona para o dashboard
   // Isso impede que um usuário logado veja a tela de login/registro
+  useEffect(() => {
   if (isAuthenticated) {
     navigate('/dashboard');
   }
+  }, [isAuthenticated, navigate]);
 
   const toggleMode = () => {
     setIsLogin(!isLogin);
