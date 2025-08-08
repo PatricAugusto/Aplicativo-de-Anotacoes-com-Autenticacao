@@ -1,12 +1,107 @@
-# React + Vite
+# 📝 Aplicativo de Anotações: Matrix Notes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📖 Sobre o Projeto
+Este é um aplicativo de anotações dinâmico e responsivo, desenvolvido com uma estética futurista inspirada no universo de **Matrix**.  
+Ele permite que os usuários se autentiquem, criem, visualizem, editem e excluam anotações pessoais, com os dados armazenados **em tempo real na nuvem**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Funcionalidades
 
-## Expanding the ESLint configuration
+- **Autenticação de Usuário:** Cadastro e login com email e senha utilizando **Firebase Authentication**.
+- **Rotas Protegidas:** Apenas usuários autenticados têm acesso ao dashboard de anotações.
+- **Gerenciamento de Anotações (CRUD):**
+  - **Criar:** Adicione novas anotações.
+  - **Ler:** Visualize anotações em tempo real.
+  - **Atualizar:** Edite o conteúdo das anotações existentes.
+  - **Deletar:** Remova anotações que não são mais necessárias.
+- **Sincronização em Tempo Real:** Atualização instantânea em todos os dispositivos logados com **Firestore**.
+- **Interface Futurista:** Design minimalista e responsivo com paleta preto + verde neon, usando **Styled Components**.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **React** – Biblioteca para construção da interface.
+- **Vite** – Build rápido e moderno para front-end.
+- **Styled Components** – Estilização modular e dinâmica.
+- **React Router DOM** – Gerenciamento de rotas.
+- **Firebase:**
+  - **Firebase Authentication** – Autenticação de usuários.
+  - **Firestore** – Banco de dados NoSQL em tempo real.
+
+---
+
+## 🚀 Como Executar o Projeto
+
+### 1️⃣ Pré-requisitos
+Certifique-se de ter instalado:
+- **Node.js**
+- **npm** (gerenciador de pacotes do Node)
+
+---
+
+### 2️⃣ Instalação
+
+Clone o repositório e acesse a pasta do projeto:
+
+```bash
+git clone [URL_DO_SEU_REPOSITORIO]
+cd matrix-notes
+```
+
+Instale as depêndencias
+```bash
+npm install
+```
+
+3️⃣ Configuração do 
+
+1. Crie um projeto no Console do Firebase.
+
+2. Ative o login por Email/Senha em Build > Authentication.
+
+3. Crie um banco de dados Firestore em modo de teste em Build > Firestore Database.
+
+4. Adicione um aplicativo Web (</>) ao projeto e copie o objeto de configuração.
+
+4️⃣ Conectando o Aplicativo
+```javascript
+// src/firebase-config.js
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+
+export { app };
+```
+
+5️⃣ Criando o Índice do Firestore
+Caso receba um erro no console ao ordenar as anotações, clique no link gerado pelo Firebase para criar o índice composto:
+
+- Coleção: notes
+
+- Campos:
+
+   - userId (ascendente)
+
+   - createdAt (descendente)
+
+6️⃣ Executando o Servidor de Desenvolvimento
+Inicie o servidor do Vite:
+
+```bash
+npm run dev
+```
+
+O app estará disponível em: 
+
+➡ http://localhost:5173
